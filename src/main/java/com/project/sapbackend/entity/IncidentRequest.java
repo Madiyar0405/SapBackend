@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.Set;
 
 import java.util.Date;
 
@@ -25,18 +26,18 @@ public class IncidentRequest {
     @Temporal(TemporalType.TIMESTAMP)
     private Date registrationDatetime;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "service_id")
     private ITServiceCatalog itServiceCatalog;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "request_type_id")
     private RequestType requestType;
 
     @Column(name = "initiator_name", nullable = false)
     private String initiatorName;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "incident_location_id")
     private Location incidentLocation;
 

@@ -109,180 +109,16 @@
 //}
 //
 //// Каталог ИТ-услуг
-//@Entity
-//@Table(name = "it_service_catalog")
-//public class ITServiceCatalog {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "service_id")
-//    private Long serviceId;
-//
-//    @Column(name = "service_name", nullable = false)
-//    private String serviceName;
-//
-//    @OneToMany(mappedBy = "itServiceCatalog", cascade = CascadeType.ALL)
-//    private Set<RequestType> requestTypes;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
-//
 //// Типы запросов
-//@Entity
-//@Table(name = "request_types")
-//public class RequestType {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "type_id")
-//    private Long typeId;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "service_id", nullable = false)
-//    private ITServiceCatalog itServiceCatalog;
-//
-//    @Column(name = "type_name", nullable = false)
-//    private String typeName;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
+
 //
 //// Местоположения
-//@Entity
-//@Table(name = "locations")
-//public class Location {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "location_id")
-//    private Long locationId;
-//
-//    @Column(name = "address", nullable = false)
-//    private String address;
-//
-//    @Column(name = "region", nullable = false)
-//    private String region;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
 //
 //// Административные объекты
-//@Entity
-//@Table(name = "administrative_objects")
-//public class AdministrativeObject {
 //
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "object_id")
-//    private Long objectId;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "location_id")
-//    private Location location;
-//
-//    @OneToMany(mappedBy = "administrativeObject", cascade = CascadeType.ALL)
-//    private Set<ProductionObject> productionObjects;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
-//
-//// Производственные объекты
-//@Entity
-//@Table(name = "production_objects")
-//public class ProductionObject {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "production_object_id")
-//    private Long productionObjectId;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "admin_object_id")
-//    private AdministrativeObject administrativeObject;
-//
-//    @OneToMany(mappedBy = "productionObject", cascade = CascadeType.ALL)
-//    private Set<Horizon> horizons;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
-//
+//// Производственные объекты//
 //// Горизонты
-//@Entity
-//@Table(name = "horizons")
-//public class Horizon {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "horizon_id")
-//    private Long horizonId;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "production_object_id")
-//    private ProductionObject productionObject;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
-//
-//// Типы линий ВОЛС
-//@Entity
-//@Table(name = "optical_fiber_line_types")
-//public class OpticalFiberLineType {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
-//    private Long id;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
-//
-//// Линии ВОЛС
-//@Entity
-//@Table(name = "optical_fiber_lines")
-//public class OpticalFiberLine {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
-//    private Long id;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "administrative_object_id")
-//    private AdministrativeObject administrativeObject;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
+
 //
 //// Сотрудники
 //@Entity
@@ -308,23 +144,7 @@
 //    // ...
 //}
 //
-//// Причины инцидентов ВОЛС
-//@Entity
-//@Table(name = "incident_causes")
-//public class IncidentCause {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "cause_id")
-//    private Long causeId;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
+
 //
 //// Принятые меры
 //@Entity
@@ -402,22 +222,6 @@
 //}
 //
 //// Группы поддержки
-//@Entity
-//@Table(name = "support_group")
-//public class SupportGroup {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "group_id")
-//    private Long groupId;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
 //
 //// Справочник
 //@Entity
@@ -437,44 +241,8 @@
 //    // ...
 //}
 //
-//// Способы прокладки
-//@Entity
-//@Table(name = "laying_methods")
-//public class LayingMethod {
+
 //
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "method_id")
-//    private Long methodId;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
-//
-//// Марки кабеля
-//@Entity
-//@Table(name = "cable_brands")
-//public class CableBrand {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "cable_id")
-//    private Long cableId;
-//
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-//    @Column(name = "cable_type", nullable = false)
-//    private String cableType;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
 //
 //@Entity
 //@Table(name = "it_assets")
@@ -531,26 +299,7 @@
 //    // ...
 //}
 //
-//@Entity
-//@Table(name = "incident_request_causes")
-//public class IncidentRequestCause {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "request_id")
-//    private IncidentRequest incidentRequest;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "cause_id")
-//    private IncidentCause incidentCause;
-//
-//    // Геттеры и сеттеры
-//
-//    // ...
-//}
+
 //
 //// Обработка запросов
 //@Entity

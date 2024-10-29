@@ -34,4 +34,4 @@ build/
 
 
 .src/main/resources/application.properties
-./sapbackend/test.java
+.src/main/java/com/project/sapbackend/test.java
