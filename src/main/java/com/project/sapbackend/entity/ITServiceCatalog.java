@@ -1,26 +1,27 @@
 package com.project.sapbackend.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.http.converter.json.GsonBuilderUtils;
+
+import java.util.List;
 import java.util.Set;
 
-
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "it_service_catalog")
 public class ITServiceCatalog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "service_id")
     private Long serviceId;
 
-    @Column(name = "service_name", nullable = false)
+    @Column(nullable = false)
     private String serviceName;
 
-    @OneToMany(mappedBy = "itServiceCatalog", cascade = CascadeType.ALL)
-    private Set<RequestType> requestTypes;
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List <RequestType> requestTypes;
 
 }

@@ -1,25 +1,26 @@
 package com.project.sapbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "request_types")
 public class RequestType {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "type_id")
     private Long typeId;
 
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
-    private ITServiceCatalog itServiceCatalog;
+    @JsonBackReference
+    private ITServiceCatalog service;
 
-    @Column(name = "type_name", nullable = false)
+    @Column(nullable = false)
     private String typeName;
-
 }

@@ -1,20 +1,19 @@
 package com.project.sapbackend.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import java.util.Set;
+import lombok.Data;
+
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "production_objects")
 public class ProductionObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "production_object_id")
-    private Long productionObjectId;
+    private Integer productionObjectId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -23,7 +22,7 @@ public class ProductionObject {
     @JoinColumn(name = "admin_object_id")
     private AdministrativeObject administrativeObject;
 
-    @OneToMany(mappedBy = "productionObject", cascade = CascadeType.ALL)
-    private Set<Horizon> horizons;
 
+    @OneToMany(mappedBy = "productionObject", cascade = CascadeType.ALL)
+    private List<Horizon> horizons;
 }

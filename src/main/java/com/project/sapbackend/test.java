@@ -1,10 +1,8 @@
-//import jakarta.persistence.OneToOne;
-//
 //import javax.persistence.*;
-//import java.util.Date;
+//import java.sql.Timestamp;
+//import java.util.List;
 //import java.util.Set;
 //
-//// Роли
 //@Entity
 //@Table(name = "roles")
 //public class Role {
@@ -12,17 +10,31 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "role_id")
-//    private Long roleId;
+//    private Integer roleId;
 //
 //    @Column(name = "role_name", nullable = false)
 //    private String roleName;
 //
-//    // Геттеры и сеттеры
+//    @ManyToMany
+//    @JoinTable(
+//            name = "role_crud_permissions",
+//            joinColumns = @JoinColumn(name = "role_id"),
+//            inverseJoinColumns = @JoinColumn(name = "permission_id")
+//    )
+//    private Set<CrudPermission> crudPermissions;
 //
-//    // ...
+//    @ManyToMany
+//    @JoinTable(
+//            name = "role_raci_permissions",
+//            joinColumns = @JoinColumn(name = "role_id"),
+//            inverseJoinColumns = @JoinColumn(name = "permission_id")
+//    )
+//    private Set<RaciPermission> raciPermissions;
+//
+//    // Getters and setters
 //}
 //
-//// CRUD права
+//
 //@Entity
 //@Table(name = "crud_permissions")
 //public class CrudPermission {
@@ -30,7 +42,7 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "permission_id")
-//    private Long permissionId;
+//    private Integer permissionId;
 //
 //    @Column(name = "permission_name", nullable = false)
 //    private String permissionName;
@@ -38,12 +50,10 @@
 //    @Column(name = "description")
 //    private String description;
 //
-//    // Геттеры и сеттеры
-//
-//    // ...
+//    // Getters and setters
 //}
 //
-//// RACI права
+//
 //@Entity
 //@Table(name = "raci_permissions")
 //public class RaciPermission {
@@ -51,7 +61,7 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "permission_id")
-//    private Long permissionId;
+//    private Integer permissionId;
 //
 //    @Column(name = "permission_name", nullable = false)
 //    private String permissionName;
@@ -59,76 +69,184 @@
 //    @Column(name = "description")
 //    private String description;
 //
-//    // Геттеры и сеттеры
-//
-//    // ...
+//    // Getters and setters
 //}
 //
-//// Привязка ролей к CRUD правам
+//
+//
 //@Entity
-//@Table(name = "role_crud_permissions")
-//public class RoleCrudPermission {
+//@Table(name = "it_service_catalog")
+//public class ITServiceCatalog {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+//    @Column(name = "service_id")
+//    private Integer serviceId;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role;
+//    @Column(name = "service_name", nullable = false)
+//    private String serviceName;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "permission_id")
-//    private CrudPermission crudPermission;
+//    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+//    private List<RequestType> requestTypes;
 //
-//    // Геттеры и сеттеры
-//
-//    // ...
+//    // Getters and setters
 //}
 //
-//// Привязка ролей к RACI правам
+//
+//
 //@Entity
-//@Table(name = "role_raci_permissions")
-//public class RoleRaciPermission {
+//@Table(name = "request_types")
+//public class RequestType {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+//    @Column(name = "type_id")
+//    private Integer typeId;
 //
 //    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role;
+//    @JoinColumn(name = "service_id")
+//    private ITServiceCatalog service;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "permission_id")
-//    private RaciPermission raciPermission;
+//    @Column(name = "type_name", nullable = false)
+//    private String typeName;
 //
-//    // Геттеры и сеттеры
-//
-//    // ...
+//    // Getters and setters
 //}
 //
-//// Каталог ИТ-услуг
-//// Типы запросов
-
 //
-//// Местоположения
+//@Entity
+//@Table(name = "locations")
+//public class Location {
 //
-//// Административные объекты
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "location_id")
+//    private Integer locationId;
 //
-//// Производственные объекты//
-//// Горизонты
-
+//    @Column(name = "address", nullable = false)
+//    private String address;
 //
-//// Сотрудники
+//    @Column(name = "region", nullable = false)
+//    private String region;
+//
+//
+//    //Getters and setters
+//
+//}
+//
+//
+//
+//@Entity
+//@Table(name = "administrative_objects")
+//public class AdministrativeObject {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "object_id")
+//    private Integer objectId;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "location_id")
+//    private Location location;
+//
+//
+//    @OneToMany(mappedBy = "administrativeObject", cascade = CascadeType.ALL)
+//    private List<ProductionObject> productionObjects;
+//    // Getters and setters
+//}
+//
+//
+//@Entity
+//@Table(name = "production_objects")
+//public class ProductionObject {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "production_object_id")
+//    private Integer productionObjectId;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "admin_object_id")
+//    private AdministrativeObject administrativeObject;
+//
+//
+//    @OneToMany(mappedBy = "productionObject", cascade = CascadeType.ALL)
+//    private List<Horizon> horizons;
+//    // Getters and setters
+//}
+//
+//
+//@Entity
+//@Table(name = "horizons")
+//public class Horizon {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "horizon_id")
+//    private Integer horizonId;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "production_object_id")
+//    private ProductionObject productionObject;
+//
+//    // Getters and setters
+//}
+//
+//
+//@Entity
+//@Table(name = "optical_fiber_line_types")
+//public class OpticalFiberLineType {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id")
+//    private Integer id;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//
+//    // Getters and setters
+//}
+//
+//
+//
+//@Entity
+//@Table(name = "optical_fiber_lines")
+//public class OpticalFiberLine {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id")
+//    private Integer id;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "administrative_object_id")
+//    private  AdministrativeObject administrativeObject;
+//
+//    // Getters and setters
+//}
+//
+//
 //@Entity
 //@Table(name = "employees")
 //public class Employee {
-//
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "employee_id")
-//    private Long employeeId;
+//    private Integer employeeId;
 //
 //    @Column(name = "full_name", nullable = false)
 //    private String fullName;
@@ -139,14 +257,30 @@
 //    @Column(name = "position", nullable = false)
 //    private String position;
 //
-//    // Геттеры и сеттеры
-//
-//    // ...
+//    @ManyToMany(mappedBy = "executors")
+//    private List<RequestProcessing> requestProcessings;
+//    // Getters and setters
 //}
 //
-
 //
-//// Принятые меры
+//@Entity
+//@Table(name = "incident_causes")
+//public class IncidentCause {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "cause_id")
+//    private Integer causeId;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//
+//    @ManyToMany(mappedBy = "incidentCauses")
+//    private List<IncidentRequest> incidentRequests;
+//    // Getters and setters
+//}
+//
+//
 //@Entity
 //@Table(name = "accepted_measures")
 //public class AcceptedMeasure {
@@ -154,17 +288,20 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "measure_id")
-//    private Long measureId;
+//    private Integer measureId;
 //
 //    @Column(name = "name", nullable = false)
 //    private String name;
 //
-//    // Геттеры и сеттеры
+//    @ManyToMany(mappedBy = "acceptedMeasures")
+//    private List<RequestProcessing> requestProcessings;
 //
-//    // ...
+//
+//    // Getters and setters
 //}
 //
-//// Причины продления запросов
+//
+//
 //@Entity
 //@Table(name = "request_extension_causes")
 //public class RequestExtensionCause {
@@ -172,25 +309,25 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "cause_id")
-//    private Long causeId;
+//    private Integer causeId;
+//
 //
 //    @Column(name = "name", nullable = false)
 //    private String name;
 //
-//    // Геттеры и сеттеры
 //
-//    // ...
+//    @ManyToMany(mappedBy = "requestExtensionCauses")
+//    private List<RequestProcessing> requestProcessings;
+//    // Getters and setters
 //}
 //
-//// Статус инцидента
 //@Entity
 //@Table(name = "incident_status")
 //public class IncidentStatus {
-//
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "status_id")
-//    private Long statusId;
+//    private Integer statusId;
 //
 //    @Column(name = "name", nullable = false)
 //    private String name;
@@ -198,12 +335,10 @@
 //    @Column(name = "note")
 //    private String note;
 //
-//    // Геттеры и сеттеры
-//
-//    // ...
+//    // Getters and setters
 //}
 //
-//// Статус запроса
+//
 //@Entity
 //@Table(name = "request_status")
 //public class RequestStatus {
@@ -211,19 +346,34 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "status_id")
-//    private Long statusId;
+//    private Integer statusId;
+//
 //
 //    @Column(name = "name", nullable = false)
 //    private String name;
 //
-//    // Геттеры и сеттеры
 //
-//    // ...
+//    // Getters and setters
 //}
 //
-//// Группы поддержки
 //
-//// Справочник
+//
+//@Entity
+//@Table(name = "support_group")
+//public class SupportGroup {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "group_id")
+//    private Integer groupId;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//    // Getters and setters
+//}
+//
+//
+//
 //@Entity
 //@Table(name = "reference_list")
 //public class ReferenceList {
@@ -231,17 +381,55 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "reference_id")
-//    private Long referenceId;
+//    private Integer referenceId;
 //
 //    @Column(name = "name", nullable = false)
 //    private String name;
 //
-//    // Геттеры и сеттеры
 //
-//    // ...
+//    // Getters and setters
 //}
 //
-
+//
+//@Entity
+//@Table(name = "laying_methods")
+//public class LayingMethod {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "method_id")
+//    private Integer methodId;
+//
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//
+//    // Getters and setters
+//}
+//
+//
+//
+//@Entity
+//@Table(name = "cable_brands")
+//public class CableBrand {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "cable_id")
+//    private Integer cableId;
+//
+//    @Column(name = "name", nullable = false)
+//    private String name;
+//
+//    @Column(name = "cable_type", nullable = false)
+//    private String cableType;
+//
+//
+//
+//    // Getters and setters
+//}
+//
 //
 //
 //@Entity
@@ -250,16 +438,20 @@
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+//    @Column(name = "id")
+//    private Integer id;
 //
 //    @Column(name = "category")
 //    private String category;
 //
+//
 //    @Column(name = "subcategory_ru")
 //    private String subcategoryRu;
 //
+//
 //    @Column(name = "subcategory_en")
 //    private String subcategoryEn;
+//
 //
 //    @Column(name = "asset_group_name_ru")
 //    private String assetGroupNameRu;
@@ -267,41 +459,153 @@
 //    @Column(name = "asset_group_name_en")
 //    private String assetGroupNameEn;
 //
+//
 //    @Column(name = "asset_subgroup_name_ru")
 //    private String assetSubgroupNameRu;
+//
 //
 //    @Column(name = "asset_subgroup_name_en")
 //    private String assetSubgroupNameEn;
 //
+//
+//
 //    @Column(name = "asset_type_name_ru")
 //    private String assetTypeNameRu;
+//
 //
 //    @Column(name = "asset_type_name_en")
 //    private String assetTypeNameEn;
 //
+//
 //    @Column(name = "asset_brand_name_ru")
 //    private String assetBrandNameRu;
+//
 //
 //    @Column(name = "asset_brand_name_en")
 //    private String assetBrandNameEn;
 //
+//
+//
 //    @Column(name = "spare_part_name_ru")
 //    private String sparePartNameRu;
+//
 //
 //    @Column(name = "spare_part_name_en")
 //    private String sparePartNameEn;
 //
-//    @Column(name = "usage", columnDefinition = "TEXT")
+//
+//    @Column(name = "usage")
 //    private String usage;
 //
-//    // Геттеры и сеттеры
 //
-//    // ...
+//    // Getters and setters
 //}
 //
-
 //
-//// Обработка запросов
+//
+//@Entity
+//@Table(name = "incident_requests")
+//public class IncidentRequest {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "request_id")
+//    private Integer requestId;
+//
+//
+//
+//    @Column(name = "registration_datetime")
+//    private Timestamp registrationDatetime;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "service_id")
+//    private ITServiceCatalog service;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "request_type_id")
+//    private RequestType requestType;
+//
+//    @Column(name = "initiator_name", nullable = false)
+//    private String initiatorName;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "incident_location_id")
+//    private Location incidentLocation;
+//
+//
+//    @Column(name = "additional_info")
+//    private String additionalInfo;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "support_group_id")
+//    private SupportGroup supportGroup;
+//
+//
+//    @Column(name = "redirect_count")
+//    private Integer redirectCount;
+//
+//    @Column(name = "incident_description", nullable = false)
+//    private String incidentDescription;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "admin_object_id")
+//    private AdministrativeObject adminObject;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "production_object_id")
+//    private ProductionObject productionObject;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "fiber_name_id")
+//    private OpticalFiberLine fiberName;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "line_type_id")
+//    private OpticalFiberLineType lineType;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "horizon_id")
+//    private Horizon horizon;
+//
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "fiber_brand_id")
+//    private CableBrand fiberBrand;
+//
+//
+//    @Column(name = "total_fibers")
+//    private Integer totalFibers;
+//
+//
+//
+//    @Column(name = "cable_length")
+//    private Double cableLength;
+//
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "laying_method_id")
+//    private LayingMethod layingMethod;
+//
+//
+//    @Column(name = "incident_photo")
+//    private byte[] incidentPhoto;
+//
+//    @ManyToMany
+//    @JoinTable(name = "incident_request_causes",
+//            joinColumns = @JoinColumn(name = "request_id"),
+//            inverseJoinColumns = @JoinColumn(name = "cause_id"))
+//    private List<IncidentCause> incidentCauses;
+//
+//    // Getters and setters
+//}
+//
+//
+//
 //@Entity
 //@Table(name = "request_processing")
 //public class RequestProcessing {
@@ -309,15 +613,15 @@
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "request_id")
-//    private Long requestId;
+//    private Integer requestId;
 //
 //    @Column(name = "material_costs")
 //    private Double materialCosts;
 //
-//    @Column(name = "solution", columnDefinition = "TEXT")
+//    @Column(name = "solution")
 //    private String solution;
 //
-//    @Column(name = "comment", columnDefinition = "TEXT")
+//    @Column(name = "comment")
 //    private String comment;
 //
 //    @ManyToOne
@@ -328,86 +632,146 @@
 //    @JoinColumn(name = "request_status_id")
 //    private RequestStatus requestStatus;
 //
+//
 //    @Column(name = "closing_datetime")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date closingDatetime;
+//    private Timestamp closingDatetime;
 //
-//    @OneToMany(mappedBy = "requestProcessing", cascade = CascadeType.ALL)
-//    private Set<RequestAcceptedMeasure> requestAcceptedMeasures;
+//    @ManyToMany
+//    @JoinTable(name = "request_accepted_measures",
+//            joinColumns = @JoinColumn(name = "request_id"),
+//            inverseJoinColumns = @JoinColumn(name = "measure_id"))
+//    private List<AcceptedMeasure> acceptedMeasures;
 //
-//    @OneToMany(mappedBy = "requestProcessing", cascade = CascadeType.ALL)
-//    private Set<RequestExecutor> requestExecutors;
+//    @ManyToMany
+//    @JoinTable(name = "request_executors",
+//            joinColumns = @JoinColumn(name = "request_id"),
+//            inverseJoinColumns = @JoinColumn(name = "employee_id"))
+//    private List<Employee> executors;
 //
-//    @OneToMany(mappedBy = "requestProcessing", cascade = CascadeType.ALL)
-//    private Set<RequestExtensionCausesJunction> requestExtensionCausesJunctions;
 //
-//    // Геттеры и сеттеры
+//    @ManyToMany
+//    @JoinTable(name = "request_extension_causes_junction",
+//            joinColumns = @JoinColumn(name = "request_id"),
+//            inverseJoinColumns = @JoinColumn(name = "cause_id"))
+//    private List<RequestExtensionCause> requestExtensionCauses;
 //
-//    // ...
+//    // ... getters and setters
+//
 //}
 //
-//// Принятые меры по запросу
+//
 //@Entity
-//@Table(name = "request_accepted_measures")
-//public class RequestAcceptedMeasure {
+//@Table(name = "incidents") // Ensure this table name is correct in your database
+//public class Incident {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "request_id")
-//    private RequestProcessing requestProcessing;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "measure_id")
-//    private AcceptedMeasure acceptedMeasure;
+//    @Column(name = "registration_time", nullable = false)
+//    private Timestamp registrationTime;
 //
-//    // Геттеры и сеттеры
+//    @Column(nullable = false)
+//    private String service;
 //
-//    // ...
-//}
+//    @Column(name = "request_type", nullable = false)
+//    private String requestType;
 //
-//// Исполнители запроса
-//@Entity
-//@Table(name = "request_executors")
-//public class RequestExecutor {
+//    @Column(nullable = false)
+//    private String initiator;
 //
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+//    @Column(nullable = false)
+//    private String location;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "request_id")
-//    private RequestProcessing requestProcessing;
+//    @Column(name = "floor_office")
+//    private String floorOffice;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
+//    @Column(name = "support_group", nullable = false)
+//    private Integer supportGroup;
 //
-//    // Геттеры и сеттеры
+//    @Column(name = "redirect_count", nullable = false)
+//    private Integer redirectCount;
 //
-//    // ...
-//}
+//    @Column(name = "short_description", nullable = false, columnDefinition = "TEXT")
+//    private String shortDescription;
 //
-//// Причины продления запросов (связь)
-//@Entity
-//@Table(name = "request_extension_causes_junction")
-//public class RequestExtensionCausesJunction {
 //
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+//    @Column(name = "administrative_object", nullable = false)
+//    private String administrativeObject;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "request_id")
-//    private RequestProcessing requestProcessing;
+//    @Column(name = "production_object", nullable = false)
+//    private String productionObject;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "cause_id")
-//    private RequestExtensionCause requestExtensionCause;
 //
-//    // Геттеры и сеттеры
+//    @Column(name = "name_of_fiber_optic_line", nullable = false)
+//    private String nameOfFiberOpticLine;
 //
-//    // ...
+//
+//    @Column(name = "line_type", nullable = false)
+//    private String lineType;
+//
+//
+//
+//    @Column(nullable = false)
+//    private String horizontal;
+//
+//    @Column(name = "fiber_optic_cable_brand", nullable = false)
+//    private String fiberOpticCableBrand;
+//
+//
+//    @Column(name = "total_number_of_cores", nullable = false)
+//    private Integer totalNumberOfCores;
+//
+//
+//    @Column(name = "cable_length_m", nullable = false)
+//    private Double cableLengthM;
+//
+//
+//    @Column(name = "cable_laying_method", nullable = false)
+//    private String cableLayingMethod;
+//
+//
+//    @Column(name = "incident_reason", nullable = false)
+//    private String incidentReason;
+//
+//
+//    @Column(name = "incident_photo")
+//    private String incidentPhoto;
+//
+//
+//    @Column(name = "measures_taken")
+//    private String measuresTaken;
+//
+//
+//
+//
+//    @Column(name = "material_costs_cable_m")
+//    private Double materialCostsCableM;
+//
+//
+//    @Column(name = "request_executor", nullable = false)
+//    private String requestExecutor;
+//
+//    @Column(name = "incident_status", nullable = false)
+//    private String incidentStatus;
+//
+//    @Column(name = "decision")
+//    private String decision;
+//
+//
+//
+//    @Column(name = "reasons_for_request_extension")
+//    private String reasonsForRequestExtension;
+//
+//
+//    @Column(name = "request_status", nullable = false)
+//    private String requestStatus;
+//
+//
+//
+//    @Column(name = "closure_datetime")
+//    private Timestamp closureDatetime;
+//
+//    // Getters and setters
 //}
