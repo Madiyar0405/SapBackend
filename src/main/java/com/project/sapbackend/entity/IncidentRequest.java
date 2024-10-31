@@ -1,10 +1,8 @@
 package com.project.sapbackend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.Set;
 
 import java.util.Date;
@@ -13,6 +11,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "incidentrequests")
 @Entity
 public class IncidentRequest {

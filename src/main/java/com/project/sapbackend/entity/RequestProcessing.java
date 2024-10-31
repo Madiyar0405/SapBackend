@@ -1,8 +1,17 @@
 package com.project.sapbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "request_processing")
 public class RequestProcessing {
 

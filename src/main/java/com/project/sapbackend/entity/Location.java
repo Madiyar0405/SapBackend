@@ -2,10 +2,14 @@ package com.project.sapbackend.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "locations")
 public class Location {
 

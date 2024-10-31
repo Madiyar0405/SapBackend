@@ -1,10 +1,14 @@
 package com.project.sapbackend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "horizons")
 public class Horizon {
 
@@ -15,7 +19,6 @@ public class Horizon {
 
     @Column(name = "name", nullable = false)
     private String name;
-
 
     @ManyToOne
     @JoinColumn(name = "production_object_id")

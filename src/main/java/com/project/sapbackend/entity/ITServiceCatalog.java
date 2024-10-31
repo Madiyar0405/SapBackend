@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "it_service_catalog")
 public class ITServiceCatalog {
     @Id

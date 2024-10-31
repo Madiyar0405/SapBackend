@@ -1498,3 +1498,32 @@ CREATE TABLE incidents (
                            request_status VARCHAR(255) NOT NULL,
                            closure_datetime TIMESTAMP
 );
+
+
+CREATE TABLE users (
+                       user_id SERIAL PRIMARY KEY,
+                       username VARCHAR(50) UNIQUE NOT NULL,
+                       password VARCHAR(255) NOT NULL,
+                       email VARCHAR(100) UNIQUE NOT NULL,
+                       role VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE token (
+                       tokenid BIGSERIAL PRIMARY KEY,
+                       token VARCHAR(255) NOT NULL,
+                       tokenType VARCHAR(50) NOT NULL,
+                       expired BOOLEAN NOT NULL,
+                       revoked BOOLEAN NOT NULL,
+                       userid BIGINT,
+                       FOREIGN KEY (userid) REFERENCES users(user_id) ON DELETE SET NULL
+);
+
+
+INSERT INTO users (username, password, email, role)
+VALUES
+    ('admin_user', '$2a$10$7QXQjqO5oh5s/nDyKjO8mO5iqiMC1HCQqS1NkJfJj9KPxz1EGrGbW', 'admin@example.com', 'ADMIN'),
+    ('engineer_user', '$2a$10$uVANe5IT3p3HJZ98f1Zx.eH1nvUMkH2yjJq57Eh.P1L7OkG3ds5Vu', 'engineer@example.com', 'ENGINEER'),
+    ('user_user', '$2a$10$Jj9KPxz1EGrGbW8Rjv.J.O5onJw9E4NHZ1o7ZfbX3OXeLkQfRwlsGm', 'user@example.com', 'USER'),
+    ('analyst_user', '$2a$10$gH2yjJq57Eh.P1L7OkG3dsuVANe5IT3p3HJZfR1Zx.e5iMCxHCQqxB', 'analyst@example.com', 'ANALYST');
+
+--  todo надо узнать пароли эти гпт сгенерировал хуй знает че там за пароли
