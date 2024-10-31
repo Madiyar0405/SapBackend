@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IncidentRequestController {
     private IncidentRequestService incidentRequestService;
 
+
     @PostMapping
     public IncidentRequest registerIncidentRequest(@RequestBody IncidentRequest incidentRequest) {
         return incidentRequestService.save(incidentRequest);

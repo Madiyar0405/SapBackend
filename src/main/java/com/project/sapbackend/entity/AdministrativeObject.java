@@ -1,14 +1,18 @@
 package com.project.sapbackend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Data
-@Table(name = "administrative_objects")
+@Getter
+@Setter
+@Table(name = "administrativeobjects")
 public class AdministrativeObject {
 
     @Id
@@ -26,5 +30,6 @@ public class AdministrativeObject {
 
 
     @OneToMany(mappedBy = "administrativeObject", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProductionObject> productionObjects;
 }

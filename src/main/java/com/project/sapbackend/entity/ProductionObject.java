@@ -1,13 +1,18 @@
 package com.project.sapbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Data
-@Table(name = "production_objects")
+@Getter
+@Setter
+@Table(name = "productionobjects")
 public class ProductionObject {
 
     @Id
@@ -24,5 +29,6 @@ public class ProductionObject {
 
 
     @OneToMany(mappedBy = "productionObject", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Horizon> horizons;
 }

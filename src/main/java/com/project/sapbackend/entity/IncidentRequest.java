@@ -34,8 +34,8 @@ public class IncidentRequest {
     @JoinColumn(name = "request_type_id")
     private RequestType requestType;
 
-//    @Column(name = "initiator_name", nullable = false)
-//    private String initiatorName;
+    @Column(name = "initiator_name", nullable = false)
+    private String initiatorName;
 
     @ManyToOne
     @JoinColumn(name = "incident_location_id")
@@ -53,15 +53,15 @@ public class IncidentRequest {
 //
 //    @Column(name = "incident_description", columnDefinition = "TEXT", nullable = false)
 //    private String incidentDescription;
-//
-//    @OneToOne
-//    @JoinColumn(name = "admin_object_id")
-//    private AdministrativeObject administrativeObject;
 
-//    @OneToOne
-//    @JoinColumn(name = "production_object_id")
-//    private ProductionObject productionObject;
-//
+    @OneToOne
+    @JoinColumn(name = "admin_object_id")
+    private AdministrativeObject administrativeObject;
+
+    @OneToOne
+    @JoinColumn(name = "production_object_id")
+    private ProductionObject productionObject;
+
 //    @OneToOne
 //    @JoinColumn(name = "fiber_name_id")
 //    private OpticalFiberLine opticalFiberLine;
@@ -70,9 +70,9 @@ public class IncidentRequest {
 //    @JoinColumn(name = "line_type_id")
 //    private OpticalFiberLineType opticalFiberLineType;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "horizon_id")
-//    private Horizon horizon;
+    @ManyToOne
+    @JoinColumn(name = "horizon_id")
+    private Horizon horizon;
 //
 //    @ManyToOne
 //    @JoinColumn(name = "fiber_brand_id")

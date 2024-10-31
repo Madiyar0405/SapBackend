@@ -1,8 +1,10 @@
 package com.project.sapbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "horizons")
 public class Horizon {
 
