@@ -1,6 +1,9 @@
----
 applications:
   - name: sap-backend-application
-    memory: 10G
+    memory: 1G
+    instances: 1
     path: ./target/SapBackend-0.0.1-SNAPSHOT.jar
-    buildpack: java_buildpack
+    buildpacks:
+      - java_buildpack
+    env:
+      SPRING_PROFILES_ACTIVE: prod
