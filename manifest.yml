@@ -2,6 +2,8 @@ applications:
   - name: sap-backend-application
     memory: 1G
     instances: 1
+    default-route: true
+    path: ./target/SapBackend-0.0.1-SNAPSHOT.jar
     buildpacks:
       - java_buildpack
     env:
