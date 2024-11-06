@@ -412,7 +412,7 @@
 //
 //@Entity
 //@Table(name = "cable_brands")
-//public class CableBrand {
+//public class CableBrandRepo {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -574,7 +574,7 @@
 //
 //    @ManyToOne
 //    @JoinColumn(name = "fiber_brand_id")
-//    private CableBrand fiberBrand;
+//    private CableBrandRepo fiberBrand;
 //
 //
 //    @Column(name = "total_fibers")

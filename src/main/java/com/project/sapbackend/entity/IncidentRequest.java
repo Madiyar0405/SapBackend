@@ -44,10 +44,10 @@ public class IncidentRequest {
     private String additionalInfo;
 
     @ManyToOne
-    @JoinColumn(name = "support_group_id") // спросить у толегена
+    @JoinColumn(name = "support_group_id")
     private SupportGroup supportGroup;
 
-    @Column(name = "redirect_count") // спросить у толегена
+    @Column(name = "redirect_count")
     private Integer redirectCount;
 
     @Column(name = "incident_description", columnDefinition = "TEXT", nullable = false)

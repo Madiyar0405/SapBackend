@@ -6,6 +6,8 @@ import com.project.sapbackend.repository.IncidentRequestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IncidentRequestService {
     @Autowired
@@ -14,6 +16,11 @@ public class IncidentRequestService {
     public IncidentRequest save(IncidentRequest incidentRequest){
         return incidentRequestRepository.save(incidentRequest);
     }
+
+    public List<IncidentRequest> findAll() {
+        return incidentRequestRepository.findAll();
+    }
+
 
     int arr[] = {1,2,3,4,5};
 

@@ -1,0 +1,6 @@
+---
+applications:
+  - name: sap-backend-application
+    memory: 10G
+    path: ./target/SapBackend-0.0.1-SNAPSHOT.jar
+    buildpack: java_buildpack

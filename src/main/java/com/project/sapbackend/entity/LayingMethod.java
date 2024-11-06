@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "LayingMethods")
+@Table(name = "layingmethods")
 @Getter
 @Setter
 @NoArgsConstructor
