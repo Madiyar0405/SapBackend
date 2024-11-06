@@ -4,6 +4,6 @@ applications:
     instances: 1
     path: ./target/SapBackend-0.0.1-SNAPSHOT.jar
     buildpacks:
-      - java_buildpack
+      - java_buildpack: "18.+" # This line is crucial! Use 18.+ or a specific newer version
     env:
       SPRING_PROFILES_ACTIVE: prod
