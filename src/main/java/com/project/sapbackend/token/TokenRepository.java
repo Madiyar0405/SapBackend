@@ -13,10 +13,9 @@ import java.util.Optional;
 public interface TokenRepository extends JpaRepository<JwtToken, Long> {
 
     @Query(
-            """
-                SELECT t from JwtToken t inner join User  u on t.user.userId = u.userId
-                where u.userId = :userId and (t.expired = false or t.revoked = false )
-            """
+            "SELECT t from JwtToken t inner join User u on t.user.userId = u.userId " +
+                    "where u.userId = :userId and (t.expired = false or t.revoked = false)"
+
     )
     List<JwtToken> findAllValidTokensByUser(@Param("userId") Long userId);
 

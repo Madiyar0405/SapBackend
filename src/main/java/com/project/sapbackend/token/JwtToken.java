@@ -3,7 +3,7 @@ package com.project.sapbackend.token;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.sapbackend.entity.User;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

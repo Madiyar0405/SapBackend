@@ -2,7 +2,7 @@ package com.project.sapbackend.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 

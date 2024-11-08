@@ -1,6 +1,6 @@
 package com.project.sapbackend.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;

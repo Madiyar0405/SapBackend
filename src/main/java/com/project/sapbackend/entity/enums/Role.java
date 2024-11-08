@@ -43,7 +43,8 @@ public enum Role {
                 getRaciPermissions()
                         .stream()
                         .map(permission -> new SimpleGrantedAuthority("RACI_" + permission.getPermissionCode()))
-                        .toList()
+                        .collect(Collectors.toList())
+//                        .toList()
         );
 
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));

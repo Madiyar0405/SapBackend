@@ -1,7 +1,7 @@
 package com.project.sapbackend.entity;
 
 // IncidentRequestCause.java
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;

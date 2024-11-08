@@ -1,7 +1,7 @@
 package com.project.sapbackend.entity;
 
 import com.project.sapbackend.entity.enums.Role;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

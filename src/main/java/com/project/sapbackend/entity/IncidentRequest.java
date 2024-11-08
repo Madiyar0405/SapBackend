@@ -1,6 +1,6 @@
 package com.project.sapbackend.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.util.Set;
@@ -90,6 +90,6 @@ public class IncidentRequest {
 //    @Column(name = "incident_photo")
 //    private byte[] incidentPhoto;
 
-//    @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL)
-//    private Set<IncidentRequestCause> incidentRequestCauses;
+    @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL)
+    private Set<IncidentRequestCause> incidentRequestCauses;
 }
