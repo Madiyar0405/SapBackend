@@ -3,6 +3,8 @@ package com.project.sapbackend.configs;
 import com.project.sapbackend.entity.enums.Role;
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
+
+import com.project.sapbackend.token.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,40 +28,38 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration  {
+public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
-
+    private final TokenRepository tokenRepository;
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
-                .csrf().disable()
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
                 .antMatchers(
                         "/api/**",
+                        "/api/v1/auth/**",
                         "/v3/api-docs",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/swagger-ui.html"
                 ).permitAll()
-                .antMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.toString())
+                .antMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout()
-                .logoutUrl("/api/v1/auth/logout")
-                .addLogoutHandler(logoutHandler)
-                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+                .logout(logout -> logout
+                        .logoutUrl("/api/v1/auth/logout")
+                        .addLogoutHandler(logoutHandler)
+                        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+                );
 
         return http.build();
     }
 }
-

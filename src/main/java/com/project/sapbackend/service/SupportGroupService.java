@@ -31,4 +31,9 @@ public class SupportGroupService {
         return supportGroupRepo.save(supportGroup1);
 
     }
+
+    public SupportGroup findById(Long groupId)
+    {
+        return supportGroupRepo.findById(groupId).get();
+    }
 }

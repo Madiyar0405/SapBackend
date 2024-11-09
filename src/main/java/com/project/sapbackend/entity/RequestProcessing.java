@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -12,13 +13,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "request_processing")
+@Table(name = "requestprocessing")
 public class RequestProcessing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "request_id")
     private Integer requestId;
+
+    @ManyToOne
+    @JoinColumn(name = "incident_request_id", referencedColumnName = "request_id", nullable = false)
+    private IncidentRequest incidentRequest;
+
 
     @Column(name = "material_costs")
     private Double materialCosts;

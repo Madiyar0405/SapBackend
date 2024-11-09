@@ -8,6 +8,10 @@ import com.project.sapbackend.entity.enums.Role;
 import com.project.sapbackend.repository.UserRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.project.sapbackend.token.JwtToken;
+import com.project.sapbackend.token.TokenRepository;
+import com.project.sapbackend.token.TokenType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +27,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
 
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -40,6 +45,9 @@ public class AuthenticationService {
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(savedUser, jwtToken);
+
 
         log.info(savedUser.getUsername() + ": registered");
         return AuthenticationResponse.builder()
@@ -67,6 +75,10 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
+
+
         log.info(username + " was authenticated");
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
@@ -105,4 +117,30 @@ public class AuthenticationService {
             }
         }
     }
+
+    private void revokeAllUserTokens(User user){
+        var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getUserId());
+        System.out.println(validUserTokens + "from auth service revoke");
+
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach( t -> {
+                    t.setExpired(true);
+                    t.setRevoked(true);
+                }
+        );
+        tokenRepository.saveAll(validUserTokens);
+    }
+
+    private void saveUserToken(User user, String jwtToken) {
+        var token = JwtToken.builder()
+                .user(user)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .revoked(false)
+                .expired(false)
+                .build();
+        tokenRepository.save(token);
+    }
+
 }

@@ -21,6 +21,8 @@ public class JwtToken {
     private Long tokenid;
 
     private String token;
+
+    @Column(name = "tokentype", nullable = false)
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
 

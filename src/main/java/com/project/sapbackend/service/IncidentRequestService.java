@@ -22,6 +22,9 @@ public class IncidentRequestService {
     }
 
 
+    public IncidentRequest findById(Long id) {
+        return incidentRequestRepository.findById(id).get();
+    }
 
 
 }

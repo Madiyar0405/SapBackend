@@ -3,6 +3,8 @@ package com.project.sapbackend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.sapbackend.entity.enums.Role;
 import javax.persistence.*;
+
+import com.project.sapbackend.token.JwtToken;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,6 +45,11 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<JwtToken> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

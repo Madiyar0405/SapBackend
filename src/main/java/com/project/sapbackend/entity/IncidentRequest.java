@@ -1,6 +1,8 @@
 package com.project.sapbackend.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.Set;
@@ -20,6 +22,11 @@ public class IncidentRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "request_id")
     private Long requestId;
+
+    @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<RequestProcessing> requestProcessings;
+
 
     @Column(name = "registration_datetime")
     @Temporal(TemporalType.TIMESTAMP)
@@ -90,6 +97,6 @@ public class IncidentRequest {
     @Column(name = "incident_photo")
     private byte[] incidentPhoto;
 
-    @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL)
-    private Set<IncidentRequestCause> incidentRequestCauses;
+//    @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL)
+//    private Set<IncidentRequestCause> incidentRequestCauses;
 }
