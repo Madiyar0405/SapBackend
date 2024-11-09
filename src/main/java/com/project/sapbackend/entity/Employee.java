@@ -1,9 +1,12 @@
 package com.project.sapbackend.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -29,4 +32,12 @@ public class Employee {
 
     @ManyToMany(mappedBy = "executors")
     private List<RequestProcessing> requestProcessings;
+
+    @OneToOne(mappedBy = "employee")
+    private User user;
+
+    @ManyToMany(mappedBy = "employees")
+    @JsonIgnore
+    private Set<SupportGroup> supportGroups;
+
 }

@@ -1,5 +1,6 @@
 package com.project.sapbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.sapbackend.entity.enums.Role;
 import javax.persistence.*;
 import lombok.*;
@@ -27,10 +28,17 @@ public class User implements UserDetails {
     private String username;
 
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
+    private Employee employee;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)

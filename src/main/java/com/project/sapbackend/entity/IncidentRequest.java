@@ -87,8 +87,8 @@ public class IncidentRequest {
     @JoinColumn(name = "laying_method_id")
     private LayingMethod layingMethod;
 
-//    @Column(name = "incident_photo")
-//    private byte[] incidentPhoto;
+    @Column(name = "incident_photo")
+    private byte[] incidentPhoto;
 
     @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL)
     private Set<IncidentRequestCause> incidentRequestCauses;

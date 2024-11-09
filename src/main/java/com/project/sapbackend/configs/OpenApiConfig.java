@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
                 @Server(
                         description = "Dev ENV",
-                        url = "https://www.google.ru/will-be-available-in-future"
+                        url = "https://sap-backend-application.cfapps.eu10-004.hana.ondemand.com"
                 )
         },
         security = @SecurityRequirement(

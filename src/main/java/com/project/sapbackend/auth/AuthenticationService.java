@@ -2,6 +2,7 @@ package com.project.sapbackend.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.sapbackend.configs.JwtService;
+import com.project.sapbackend.entity.Employee;
 import com.project.sapbackend.entity.User;
 import com.project.sapbackend.entity.enums.Role;
 import com.project.sapbackend.repository.UserRepository;
@@ -30,7 +31,11 @@ public class AuthenticationService {
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ADMIN)
+                .email(request.getEmail())
+                .role(Role.valueOf(request.getRole()))
+                .employee(Employee.builder()
+                        .employeeId(request.getEmployeeId())
+                        .build())
                 .build();
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);

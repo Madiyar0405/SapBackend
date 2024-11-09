@@ -27,6 +27,7 @@ public class IncidentRequestCause {
     @MapsId("causeId")
     @JoinColumn(name = "cause_id")
     private IncidentCause incidentCause;
+
 }
 
 @Embeddable

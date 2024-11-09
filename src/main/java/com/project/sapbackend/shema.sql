@@ -1527,3 +1527,11 @@ VALUES
     ('analyst_user', '$2a$10$gH2yjJq57Eh.P1L7OkG3dsuVANe5IT3p3HJZfR1Zx.e5iMCxHCQqxB', 'analyst@example.com', 'ANALYST');
 
 --  todo надо узнать пароли эти гпт сгенерировал хуй знает че там за пароли
+
+CREATE TABLE supportgroup_employee (
+                                       support_group_id BIGINT NOT NULL,
+                                       employee_id INT NOT NULL,
+                                       PRIMARY KEY (support_group_id, employee_id),
+                                       FOREIGN KEY (support_group_id) REFERENCES supportgroup (group_id) ON DELETE CASCADE,
+                                       FOREIGN KEY (employee_id) REFERENCES employees (employee_id) ON DELETE CASCADE
+);
