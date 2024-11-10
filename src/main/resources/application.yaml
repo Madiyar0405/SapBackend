@@ -2,23 +2,22 @@ spring:
   application:
     name: SapBackend
   datasource:
-#    url: jdbc:sap://7b84a113-20f9-49dc-b688-fbdd7ca88294.hna2.prod-eu10.hanacloud.ondemand.com:443
-#    username: DBADMIN
-#    password: Admin123!
-#    driver-class-name: com.sap.db.jdbc.Driver
-    username: 'postgres'
-    url: jdbc:postgresql://localhost:5432/sap
-    password: '0000'
-#    driver-class-name: com.sap.db.jdbc.Driver
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:sap://7b84a113-20f9-49dc-b688-fbdd7ca88294.hna2.prod-eu10.hanacloud.ondemand.com:443
+    username: DBADMIN
+    password: Admin123!
+    driver-class-name: com.sap.db.jdbc.Driver
+#    username: 'postgres'
+#    url: jdbc:postgresql://localhost:5432/sap
+#    password: '0000'
+#    driver-class-name: org.postgresql.Driver
   jpa:
-#    database-platform: org.hibernate.dialect.HANAColumnStoreDialect
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-    show-sql: true
+    database-platform: org.hibernate.dialect.HANAColumnStoreDialect
     hibernate:
       ddl-auto: update
+    show-sql: true
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
 server:
   port: 8090
 
