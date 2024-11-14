@@ -19,7 +19,7 @@ public class SupportGroupController {
         return ResponseEntity.ok(supportGroupService.findAll());
     }
 
-    @PutMapping("/add-emplpoyee/{groupId}")
+    @PutMapping("/add-employee/{groupId}")
     public ResponseEntity<?> addEmployeeToSupportGroup(@RequestBody AddSupportGroupEmployeeRequestDto request) {
         return ResponseEntity.ok(supportGroupService.addEmployeeToSupportGroup(request.getGroupId(), request.getEmployeeId()));
     }
