@@ -1,6 +1,7 @@
 package com.project.sapbackend.controller;
 
 
+import com.project.sapbackend.dto.AddSupportGroupEmployeeRequestDto;
 import com.project.sapbackend.service.SupportGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,10 @@ public class SupportGroupController {
         return ResponseEntity.ok(supportGroupService.findAll());
     }
 
-    @PutMapping("/add-emplpoyee/{groupId}")
-    public ResponseEntity<?> addEmployeeToSupportGroup(
-            @PathVariable Long groupId,
-            @RequestParam Integer employeeId
-    )
-    {
-        return ResponseEntity.ok(supportGroupService.addEmployeeToSupportGroup(groupId, employeeId));
+    @PutMapping("/add-employee/{groupId}")
+    public ResponseEntity<?> addEmployeeToSupportGroup(@RequestBody AddSupportGroupEmployeeRequestDto request) {
+        return ResponseEntity.ok(supportGroupService.addEmployeeToSupportGroup(request.getGroupId(), request.getEmployeeId()));
     }
-
 
 
 }
