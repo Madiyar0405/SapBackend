@@ -14,6 +14,7 @@ import lombok.*;
 public class AcceptedMeasure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "measure_id")
     private Long measureId;
 
     @Column(nullable = false, length = 255)

@@ -1,8 +1,11 @@
 package com.project.sapbackend.controller;
 
+import com.project.sapbackend.dto.IncidentRequestDTO;
 import com.project.sapbackend.entity.IncidentRequest;
+import com.project.sapbackend.entity.RequestProcessing;
 import com.project.sapbackend.service.IncidentRequestService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,5 +23,10 @@ public class IncidentRequestController {
     @GetMapping
     public List<IncidentRequest> getAllIncidentRequests() {
         return incidentRequestService.findAll();
+    }
+
+    @GetMapping("/with-status")
+    public List<IncidentRequestDTO> getIncidentRequestsWithStatus() {
+        return incidentRequestService.findAllWithStatus();
     }
 }

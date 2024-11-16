@@ -6,9 +6,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -27,6 +30,7 @@ public class IncidentRequest {
     @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<RequestProcessing> requestProcessings;
+
 
 
     @Column(name = "registration_datetime")

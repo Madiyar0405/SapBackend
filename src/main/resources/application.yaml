@@ -25,6 +25,7 @@ server:
 
 
 
+
 application:
   security:
     jwt:

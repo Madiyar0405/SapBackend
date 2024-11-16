@@ -2,6 +2,7 @@ package com.project.sapbackend.service;
 
 
 
+import com.project.sapbackend.dto.RequestProcessingDTO;
 import com.project.sapbackend.entity.RequestProcessing;
 import com.project.sapbackend.entity.RequestType;
 import com.project.sapbackend.repository.IncidentRequestRepo;
@@ -22,9 +23,9 @@ public class RequestProcessingService {
         return requestProcessingRepository.findAll();
     }
 
-    public RequestProcessing createRequestProcessing(RequestProcessing requestProcessing, Long incidentRequestId)
+    public RequestProcessing createRequestProcessing(RequestProcessingDTO requestProcessingDTO)
     {
-        requestProcessing.setIncidentRequest(incidentRequestRepo.findById(incidentRequestId).get());
-        return requestProcessingRepository.save(requestProcessing);
+        requestProcessingDTO.getRequestProcessing().setIncidentRequest(incidentRequestRepo.findById(requestProcessingDTO.getIncidentRequest().getRequestId()).get());
+        return requestProcessingRepository.save(requestProcessingDTO.getRequestProcessing());
     }
 }

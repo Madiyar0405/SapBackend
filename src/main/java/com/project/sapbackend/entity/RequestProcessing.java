@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -65,6 +64,5 @@ public class RequestProcessing {
             joinColumns = @JoinColumn(name = "request_id"),
             inverseJoinColumns = @JoinColumn(name = "cause_id"))
     private List<RequestExtensionCause> requestExtensionCauses;
-
 
 }
