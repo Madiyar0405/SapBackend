@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CableBrandService {
-    private CableBrandRepo cableBrandRepo;
+    private final CableBrandRepo cableBrandRepo;
 
     public List<CableBrand> findAll() {
         return cableBrandRepo.findAll();

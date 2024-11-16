@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class LayingMethodService {
-    private LayingMethodRepo layingMethodRepo;
+    private final LayingMethodRepo layingMethodRepo;
 
 
     public List<LayingMethod> findAll() {

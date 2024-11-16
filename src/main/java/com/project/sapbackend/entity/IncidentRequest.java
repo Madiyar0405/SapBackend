@@ -5,6 +5,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import java.util.Date;
@@ -29,9 +30,12 @@ public class IncidentRequest {
 
 
     @Column(name = "registration_datetime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date registrationDatetime;
+    private LocalDateTime registrationDatetime;
 
+    @PrePersist
+    protected void onCreate() {
+        this.registrationDatetime = LocalDateTime.now(); // Устанавливает текущее локальное время
+    }
     @OneToOne
     @JoinColumn(name = "service_id")
     private ITServiceCatalog itServiceCatalog;
