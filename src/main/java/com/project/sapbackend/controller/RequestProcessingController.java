@@ -2,7 +2,6 @@ package com.project.sapbackend.controller;
 
 
 import com.project.sapbackend.dto.RequestProcessingDTO;
-import com.project.sapbackend.entity.IncidentRequest;
 import com.project.sapbackend.entity.RequestProcessing;
 import com.project.sapbackend.service.RequestProcessingService;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +17,18 @@ public class RequestProcessingController {
     private final RequestProcessingService requestProcessingService;
     @PostMapping
     public ResponseEntity<?> createRequestProcessing(
+//            @RequestBody RequestProcessing requestProcessing,
+//            @RequestParam Long incidentRequestId
 
-            @RequestBody RequestProcessingDTO requestProcessingDTO
-//            @RequestBody IncidentRequest incidentRequestId
-//            @RequestParam(required = false) Long incidentRequestId
+            @RequestBody RequestProcessingDTO request
     ) {
-        System.out.println(requestProcessingDTO.getRequestProcessing());
-        System.out.println(requestProcessingDTO.getIncidentRequest());
-        return ResponseEntity.ok(requestProcessingService.createRequestProcessing(requestProcessingDTO));
+        return ResponseEntity.ok(requestProcessingService.createRequestProcessing(request));
+
     }
 
-    @GetMapping
-    public List<RequestProcessing> getAllRequestProcessing() {
-        return requestProcessingService.findAll();
+
+    @GetMapping("/")
+    public ResponseEntity<List<RequestProcessing>> getAllRequestProcessing() {
+        return ResponseEntity.ok(requestProcessingService.findAll());
     }
 }
-

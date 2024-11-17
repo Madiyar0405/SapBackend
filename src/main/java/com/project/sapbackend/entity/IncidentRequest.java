@@ -2,7 +2,7 @@ package com.project.sapbackend.entity;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Builder
 @Table(name = "incidentrequests")
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requestId")
 public class IncidentRequest {
 
     @Id
@@ -31,7 +32,7 @@ public class IncidentRequest {
     @JsonIgnore
     private Set<RequestProcessing> requestProcessings;
 
-
+//cascade = CascadeType.ALL,
 
     @Column(name = "registration_datetime")
     private LocalDateTime registrationDatetime;
@@ -65,7 +66,7 @@ public class IncidentRequest {
     @Column(name = "redirect_count")
     private Integer redirectCount;
 
-    @Column(name = "incident_description", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "incident_description", nullable = false)
     private String incidentDescription;
 
     @OneToOne
@@ -103,8 +104,17 @@ public class IncidentRequest {
     private LayingMethod layingMethod;
 
     @Column(name = "incident_photo")
+    @JsonIgnore
     private byte[] incidentPhoto;
 
-//    @OneToMany(mappedBy = "incidentRequest", cascade = CascadeType.ALL)
-//    private Set<IncidentRequestCause> incidentRequestCauses;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "incident_request_causes",
+            joinColumns = {@JoinColumn(name = "request_id", referencedColumnName = "request_id")},
+            inverseJoinColumns = {@JoinColumn(name = "cause_id", referencedColumnName = "cause_id")}
+    )
+//    @JsonManagedReference
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requestId")
+    @JsonIgnoreProperties("incidentRequests") // Prevents serialization of the inverse side
+    private Set<IncidentCause> incidentCauses;
 }

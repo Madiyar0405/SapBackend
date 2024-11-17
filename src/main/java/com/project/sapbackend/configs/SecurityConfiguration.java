@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                         "/swagger-ui/**",
                         "/swagger-ui.html"
                 ).permitAll()
-                .antMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+//                .antMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

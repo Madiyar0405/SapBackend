@@ -2,7 +2,10 @@ package com.project.sapbackend.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Table(name = "employees")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "employeeId", scope = Employee.class)
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +34,15 @@ public class Employee {
     @Column(name = "position", nullable = false)
     private String position;
 
-    @ManyToMany(mappedBy = "executors")
-    private List<RequestProcessing> requestProcessings;
-
     @OneToOne(mappedBy = "employee")
     private User user;
 
     @ManyToMany(mappedBy = "employees")
     @JsonIgnore
     private Set<SupportGroup> supportGroups;
+
+    @ManyToMany(mappedBy = "executors",  fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("executors")
+    private Set<RequestProcessing> requestProcessings;
 
 }
