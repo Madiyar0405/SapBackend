@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP Incident Desk</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+    <div>
+        <h1>SAP Incident Desk</h1>
+        <p class="subtitle">Управление инцидентами и статусами</p>
+    </div>
+    <div id="user-info" class="user-info">
+        <span id="user-label" class="muted">Не авторизован</span>
+        <button id="logout-btn" class="ghost-btn hidden">Выйти</button>
+    </div>
+</header>
+
+<main class="layout">
+    <section class="card">
+        <h2>Аутентификация</h2>
+        <form id="auth-form" class="form-grid">
+            <label>
+                Логин
+                <input type="text" id="username" required placeholder="user@example.com">
+            </label>
+            <label>
+                Пароль
+                <input type="password" id="password" required placeholder="••••••••">
+            </label>
+            <div class="actions">
+                <button type="submit" class="primary">Войти</button>
+            </div>
+            <p class="muted small">Для демо можно использовать существующего пользователя или зарегистрироваться через API.</p>
+        </form>
+        <div id="auth-status" class="muted small"></div>
+    </section>
+
+    <section class="card">
+        <h2>Новый инцидент</h2>
+        <form id="incident-form" class="form-grid">
+            <label>
+                Инициатор
+                <input type="text" id="initiatorName" required placeholder="ФИО или подразделение">
+            </label>
+            <label class="full">
+                Описание
+                <textarea id="incidentDescription" rows="3" required placeholder="Кратко опишите проблему"></textarea>
+            </label>
+            <label class="full">
+                Дополнительная информация
+                <textarea id="additionalInfo" rows="2" placeholder="Контакты, контекст, вложения"></textarea>
+            </label>
+            <div class="actions">
+                <button type="submit" class="primary">Создать заявку</button>
+            </div>
+        </form>
+        <div id="incident-status" class="muted small"></div>
+    </section>
+
+    <section class="card full-width">
+        <div class="card-header">
+            <h2>Текущие инциденты</h2>
+            <button id="refresh-btn" class="ghost-btn">Обновить</button>
+        </div>
+        <div id="incidents" class="incidents-grid">
+            <div class="muted">Загрузите данные, чтобы увидеть инциденты.</div>
+        </div>
+    </section>
+</main>
+
+<template id="incident-row">
+    <article class="incident">
+        <header>
+            <div>
+                <strong class="incident-title"></strong>
+                <div class="muted small incident-meta"></div>
+            </div>
+            <span class="badge" data-status></span>
+        </header>
+        <p class="incident-desc"></p>
+        <p class="muted small incident-extra"></p>
+    </article>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>
